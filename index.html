@@ -1,47 +1,93 @@
-body { font-family: Arial, sans-serif; margin: 0; background: #fdfdfd; }
-h2,h3 { margin: 10px 0; }
-.hidden { display: none; }
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Školní systém</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-#layout {
-  display: grid;
-  grid-template-columns: 700px 300px;
-  grid-gap: 20px;
-  margin: 20px;
-}
+<!-- LOGIN -->
+<div id="loginScreen">
+  <h2>Přihlášení</h2>
+  <input id="loginName" placeholder="Jméno"><br><br>
+  <input id="loginPass" type="password" placeholder="Heslo"><br><br>
+  <button onclick="login()">Přihlásit</button>
+  <p>Nemáte účet? <a href="#" onclick="showRegister()">Zaregistrujte se</a></p>
+</div>
 
-#scheduleTable { border-collapse: collapse; width: 100%; }
-#scheduleTable td, #scheduleTable th {
-  border: 1px solid #999;
-  padding: 10px;
-  text-align: center;
-}
-#scheduleTable th:first-child { background: #f90; color:#fff; }
-#scheduleTable th { background: #ff944d; }
-#scheduleTable tbody th { background: #ffcc66; text-align: left; }
+<!-- REGISTRACE -->
+<div id="registerScreen" class="hidden">
+  <h2>Registrace</h2>
+  <input id="regName" placeholder="Jméno"><br><br>
+  <input id="regPass" type="password" placeholder="Heslo"><br><br>
+  <button onclick="register()">Registrovat</button>
+  <p><a href="#" onclick="showLogin()">Zpět na přihlášení</a></p>
+</div>
 
-.btn { 
-  padding: 15px; 
-  margin: 5px; 
-  border: 2px solid #000; 
-  cursor: pointer; 
-  border-radius: 10px; 
-  font-weight: bold; 
-  display: block;
-  text-align: center;
-  width: 100%;
-}
+<!-- HLAVNÍ OBSAH -->
+<div id="mainScreen" class="hidden">
+  <h2>Uživatel: <span id="currentUser"></span> (<span id="roleText"></span>)</h2>
 
-/* Barvy tlačítek */
-#btnHodiny { background:#00aaff; color:white; }
-#btnZnámky { background:#fff; }
-#btnÚkoly { background:#22cc55; color:white; }
-#btnZpravy { background:#ff7700; color:white; }
-#btnAddLesson { background:#00aaff; color:white; }
-#btnAddInfo { background:#00aaff; color:white; }
-#btnSupl { background:#990022; color:#fff; }
-#btnUsers { background:#00aaff; color:white; }
-#btnAddTeacher { background:#9933cc; color:#fff; }
+  <div id="layout">
+    <!-- Rozvrh -->
+    <div id="rozvrh">
+      <table id="scheduleTable">
+        <thead>
+          <tr>
+            <th></th>
+            <th>1.</th><th>2.</th><th>3.</th><th>4.</th>
+            <th>5.</th><th>6.</th><th>7.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th>Pondělí</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>Úterý</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>Středa</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>Čtvrtek</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>Pátek</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        </tbody>
+      </table>
+      <p><b>Sobota</b><br><b>Neděle</b></p>
+    </div>
 
-.info-icon { background: #ff0; border-radius: 50%; padding: 2px 6px; cursor: pointer; }
-.highlight { background: red; color: white; padding: 3px; border-radius: 5px; }
-#messageNotif { color: red; font-weight: bold; }
+    <!-- Sidebar s tlačítky -->
+    <div id="sidebar">
+      <button id="btnHodiny" class="btn" onclick="showSection('scheduleSection')">Hodiny</button>
+      <button id="btnZnámky" class="btn" onclick="showSection('gradesSection')">Známky</button>
+      <button id="btnÚkoly" class="btn" onclick="showSection('tasksSection')">Úkoly</button>
+      <button id="btnZpravy" class="btn" onclick="showSection('messagesSection')">
+        Napsat zprávu učiteli <span id="messageNotif"></span>
+      </button>
+      <button id="btnAddLesson" class="btn hidden" onclick="addLessonForm()">Přidat hodinu</button>
+      <button id="btnAddInfo" class="btn hidden" onclick="addInfoForm()">Inf. k hodině</button>
+      <button id="btnSupl" class="btn hidden" onclick="addSuplForm()">Supl</button>
+      <button id="btnUsers" class="btn hidden" onclick="showUsers()">Uživatelé</button>
+      <button id="btnAddTeacher" class="btn hidden" onclick="addTeacherForm()">Přidat učitele</button>
+      <button class="btn" onclick="logout()">Odhlásit</button>
+    </div>
+  </div>
+
+  <!-- Obsah sekcí -->
+  <div id="content">
+    <div id="scheduleSection" class="hidden"><h3>Rozvrh</h3></div>
+    <div id="gradesSection" class="hidden">
+      <h3>Známky</h3>
+      <div id="grades">Žádné známky</div>
+    </div>
+    <div id="tasksSection" class="hidden">
+      <h3>Úkoly</h3>
+      <div id="tasks">Žádné úkoly</div>
+      <br>
+      <button id="btnAddTask" class="btn hidden" onclick="addTaskForm()">Přidat úkol</button>
+    </div>
+    <div id="messagesSection" class="hidden">
+      <h3>Zprávy</h3>
+      <div id="messages"></div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
