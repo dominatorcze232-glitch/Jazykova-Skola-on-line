@@ -1,1 +1,47 @@
+body { font-family: Arial, sans-serif; margin: 0; background: #fdfdfd; }
+h2,h3 { margin: 10px 0; }
+.hidden { display: none; }
 
+#layout {
+  display: grid;
+  grid-template-columns: 700px 300px;
+  grid-gap: 20px;
+  margin: 20px;
+}
+
+#scheduleTable { border-collapse: collapse; width: 100%; }
+#scheduleTable td, #scheduleTable th {
+  border: 1px solid #999;
+  padding: 10px;
+  text-align: center;
+}
+#scheduleTable th:first-child { background: #f90; color:#fff; }
+#scheduleTable th { background: #ff944d; }
+#scheduleTable tbody th { background: #ffcc66; text-align: left; }
+
+.btn { 
+  padding: 15px; 
+  margin: 5px; 
+  border: 2px solid #000; 
+  cursor: pointer; 
+  border-radius: 10px; 
+  font-weight: bold; 
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+
+/* Barvy tlačítek */
+#btnHodiny { background:#00aaff; color:white; }
+#btnZnámky { background:#fff; }
+#btnÚkoly { background:#22cc55; color:white; }
+#btnZpravy { background:#ff7700; color:white; }
+#btnAddLesson { background:#00aaff; color:white; }
+#btnAddInfo { background:#00aaff; color:white; }
+#btnSupl { background:#990022; color:#fff; }
+#btnUsers { background:#00aaff; color:white; }
+#btnAddTeacher { background:#9933cc; color:#fff; }
+
+.info-icon { background: #ff0; border-radius: 50%; padding: 2px 6px; cursor: pointer; }
+.highlight { background: red; color: white; padding: 3px; border-radius: 5px; }
+#messageNotif { color: red; font-weight: bold; }
